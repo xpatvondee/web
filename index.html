@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PETERFELIX | Collage Artist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        
+        .hero-image {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            height: 60vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .countdown {
+            font-family: monospace;
+            background-color: rgba(255,255,255,0.9);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        .artwork-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .favorite-btn.active {
+            color: #dc2626;
+        }
+        
+        .bid-history {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="text-xl font-bold text-gray-900">PETERFELIX</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-gray-900 hover:text-gray-600 px-3 py-2 text-sm font-medium active-tab">Blog</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium">Auction</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium">Shop</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium">About</a>
+                </div>
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-900">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 active-tab">Blog</a>
+                <a href="#" class="block px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-100">Auction</a>
+                <a href="#" class="block px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-100">Shop</a>
+                <a href="#" class="block px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-100">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-image flex items-center justify-center">
+        <div class="text-center px-4">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">PETERFELIX</h1>
+            <p class="text-xl md:text-2xl text-white mb-8">Collage Art & Mixed Media</p>
+            <a href="#" class="bg-white text-gray-900 px-6 py-3 rounded-full font-medium hover:bg-gray-100 transition duration-300">View Current Exhibition</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Tab Navigation -->
+        <div class="border-b border-gray-200 mb-8">
+            <div class="flex space-x-8">
+                <button class="tab-button py-4 px-1 border-b-2 font-medium text-sm active-tab" data-tab="blog">
+                    Blog & News
+                </button>
+                <button class="tab-button py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="auction">
+                    Auction Gallery
+                </button>
+                <button class="tab-button py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="shop">
+                    Postcard Shop
+                </button>
+            </div>
+        </div>
+
+        <!-- Blog Tab Content -->
+        <div id="blog" class="tab-content active">
+            <h2 class="text-3xl font-bold mb-8">Latest Updates</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Blog Post 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1543922596-b3ba1e05b51e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Exhibition announcement" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <span>June 15, 2023</span>
+                            <span class="mx-2">•</span>
+                            <span>Exhibitions</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Upcoming Solo Exhibition in Berlin</h3>
+                        <p class="text-gray-600 mb-4">My new collection "Fragmented Realities" will be exhibited at the Modern Art Gallery Berlin from July 10-30.</p>
+                        <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Read more →</a>
+                    </div>
+                </div>
+                
+                <!-- Blog Post 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="New collection" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <span>May 28, 2023</span>
+                            <span class="mx-2">•</span>
+                            <span>New Work</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">"Urban Fragments" Collection Released</h3>
+                        <p class="text-gray-600 mb-4">I'm excited to share my latest series exploring the juxtaposition of urban architecture and natural elements.</p>
+                        <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Read more →</a>
+                    </div>
+                </div>
+                
+                <!-- Blog Post 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1508700115892-45ecd5ae2625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Artist interview" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <span>April 12, 2023</span>
+                            <span class="mx-2">•</span>
+                            <span>Interviews</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Featured in Contemporary Art Magazine</h3>
+                        <p class="text-gray-600 mb-4">Read my interview discussing the creative process behind my collage techniques and artistic philosophy.</p>
+                        <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Read more →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    View All Blog Posts
+                </a>
+            </div>
+        </div>
+
+        <!-- Auction Tab Content -->
+        <div id="auction" class="tab-content">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold">Auction Gallery</h2>
+                <div class="flex items-center space-x-4">
+                    <button id="view-favorites" class="flex items-center text-gray-700 hover:text-red-500">
+                        <i class="fas fa-heart mr-2"></i>
+                        <span>Favorites</span>
+                    </button>
+                    <div class="relative">
+                        <select class="block appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:border-gray-500">
+                            <option>Sort by: Newest</option>
+                            <option>Sort by: Ending Soon</option>
+                            <option>Sort by: Highest Bids</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Artwork 1 -->
+                <div class="artwork-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1579783902614-a3fb39268b5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Fragmented Memories" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2">
+                            <button class="favorite-btn text-white bg-gray-200 bg-opacity-70 p-2 rounded-full hover:text-red-500">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-2 left-2 countdown" data-endtime="2023-07-25T23:59:59">
+                            Ends in: <span class="time-left">2d 12h 34m</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Fragmented Memories</h3>
+                        <p class="text-gray-600 mb-4">Mixed media collage on canvas, 2023</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <p class="text-sm text-gray-500">Current Bid</p>
+                                <p class="text-xl font-bold">€850</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Bids</p>
+                                <p class="text-xl font-bold">12</p>
+                            </div>
+                        </div>
+                        <button class="bid-btn w-full bg-gray-900 text-white py-2 rounded hover:bg-gray-700 transition duration-300" data-artwork="1">
+                            Place Bid
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Artwork 2 -->
+                <div class="artwork-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1532798442725-41036acc7489?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Urban Layers" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2">
+                            <button class="favorite-btn text-white bg-gray-200 bg-opacity-70 p-2 rounded-full hover:text-red-500">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-2 left-2 countdown" data-endtime="2023-07-28T23:59:59">
+                            Ends in: <span class="time-left">5d 8h 22m</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Urban Layers</h3>
+                        <p class="text-gray-600 mb-4">Collage and acrylic on wood panel, 2022</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <p class="text-sm text-gray-500">Current Bid</p>
+                                <p class="text-xl font-bold">€1,200</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Bids</p>
+                                <p class="text-xl font-bold">8</p>
+                            </div>
+                        </div>
+                        <button class="bid-btn w-full bg-gray-900 text-white py-2 rounded hover:bg-gray-700 transition duration-300" data-artwork="2">
+                            Place Bid
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Artwork 3 -->
+                <div class="artwork-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1578307988131-98bd5407b1b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Deconstructed Portrait" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2">
+                            <button class="favorite-btn text-white bg-gray-200 bg-opacity-70 p-2 rounded-full hover:text-red-500">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-2 left-2 countdown" data-endtime="2023-07-30T23:59:59">
+                            Ends in: <span class="time-left">7d 3h 45m</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Deconstructed Portrait</h3>
+                        <p class="text-gray-600 mb-4">Vintage paper collage on board, 2023</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <p class="text-sm text-gray-500">Current Bid</p>
+                                <p class="text-xl font-bold">€680</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Bids</p>
+                                <p class="text-xl font-bold">5</p>
+                            </div>
+                        </div>
+                        <button class="bid-btn w-full bg-gray-900 text-white py-2 rounded hover:bg-gray-700 transition duration-300" data-artwork="3">
+                            Place Bid
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    View All Auction Items
+                </a>
+            </div>
+        </div>
+
+        <!-- Shop Tab Content -->
+        <div id="shop" class="tab-content">
+            <h2 class="text-3xl font-bold mb-8">Postcard Shop</h2>
+            <p class="text-gray-600 mb-8 max-w-3xl">Each postcard is a unique, handmade collage using vintage papers and materials. Perfect for sending or framing. All postcards are €15 each.</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Postcard 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1579762715459-5a068c4f4ff1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Postcard 1" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Botanical Fragments #1</h3>
+                        <p class="text-gray-600 mb-4">Handmade collage postcard</p>
+                        <div class="flex justify-between items-center">
+                            <p class="text-xl font-bold">€15</p>
+                            <button class="add-to-cart bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700 transition duration-300">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Postcard 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1579762715120-5362a2a53948?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Postcard 2" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Urban Geometry #4</h3>
+                        <p class="text-gray-600 mb-4">Handmade collage postcard</p>
+                        <div class="flex justify-between items-center">
+                            <p class="text-xl font-bold">€15</p>
+                            <button class="add-to-cart bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700 transition duration-300">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Postcard 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1579762715121-01a5f6a95136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Postcard 3" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Vintage Portrait #7</h3>
+                        <p class="text-gray-600 mb-4">Handmade collage postcard</p>
+                        <div class="flex justify-between items-center">
+                            <p class="text-xl font-bold">€15</p>
+                            <button class="add-to-cart bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700 transition duration-300">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Postcard 4 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1579762715120-0a2e0e9dc9ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Postcard 4" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Abstract Composition #3</h3>
+                        <p class="text-gray-600 mb-4">Handmade collage postcard</p>
+                        <div class="flex justify-between items-center">
+                            <p class="text-xl font-bold">€15</p>
+                            <button class="add-to-cart bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700 transition duration-300">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    View All Postcards
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bid Modal -->
+    <div id="bid-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-1/2 shadow-lg rounded-md bg-white">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold" id="artwork-title">Place Bid</h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="mb-6">
+                <p class="text-gray-600 mb-2">Current Bid: <span class="font-bold" id="current-bid">€0</span></p>
+                <p class="text-gray-600 mb-4">Minimum Next Bid: <span class="font-bold" id="next-bid">€0</span></p>
+                
+                <label for="bid-amount" class="block text-sm font-medium text-gray-700 mb-1">Your Bid (€)</label>
+                <input type="number" id="bid-amount" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500" min="0" step="10">
+                
+                <label for="bid-name" class="block text-sm font-medium text-gray-700 mt-4 mb-1">Your Name</label>
+                <input type="text" id="bid-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500">
+            </div>
+            
+            <div class="mb-6">
+                <h4 class="font-bold mb-2">Bid History</h4>
+                <div class="bid-history border rounded p-3">
+                    <div class="text-center text-gray-500 py-4">No bids yet</div>
+                </div>
+            </div>
+            
+            <div class="flex justify-end space-x-3">
+                <button id="cancel-bid" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Cancel</button>
+                <button id="submit-bid" class="px-4 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-700">Submit Bid</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-1/3 shadow-lg rounded-md bg-white">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold">Your Cart</h3>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="border-b pb-4 mb-4">
+                <div class="flex justify-between items-center mb-2">
+                    <p class="font-medium">Botanical Fragments #1</p>
+                    <p class="text-gray-600">€15</p>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <button class="quantity-btn px-2 py-1 border rounded-l">-</button>
+                        <span class="px-4 py-1 border-t border-b">1</span>
+                        <button class="quantity-btn px-2 py-1 border rounded-r">+</button>
+                    </div>
+                    <button class="remove-item text-red-500 hover:text-red-700">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="border-b pb-4 mb-4">
+                <div class="flex justify-between items-center mb-2">
+                    <p class="font-medium">Urban Geometry #4</p>
+                    <p class="text-gray-600">€15</p>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <button class="quantity-btn px-2 py-1 border rounded-l">-</button>
+                        <span class="px-4 py-1 border-t border-b">1</span>
+                        <button class="quantity-btn px-2 py-1 border rounded-r">+</button>
+                    </div>
+                    <button class="remove-item text-red-500 hover:text-red-700">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="flex justify-between items-center mb-6">
+                <p class="font-bold">Total</p>
+                <p class="font-bold">€30</p>
+            </div>
+            
+            <button class="w-full bg-gray-900 text-white py-2 rounded hover:bg-gray-700 transition duration-300">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Favorites Modal -->
+    <div id="favorites-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-1/2 shadow-lg rounded-md bg-white">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold">Your Favorites</h3>
+                <button id="close-favorites" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="flex items-center border-b pb-4">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb39268b5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Fragmented Memories" class="w-20 h-20 object-cover rounded">
+                    <div class="ml-4 flex-grow">
+                        <h4 class="font-bold">Fragmented Memories</h4>
+                        <p class="text-sm text-gray-600">Current Bid: €850</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="view-item px-3 py-1 border rounded text-sm hover:bg-gray-100">View</button>
+                        <button class="remove-favorite text-red-500 hover:text-red-700">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center border-b pb-4">
+                    <img src="https://images.unsplash.com/photo-1532798442725-41036acc7489?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Urban Layers" class="w-20 h-20 object-cover rounded">
+                    <div class="ml-4 flex-grow">
+                        <h4 class="font-bold">Urban Layers</h4>
+                        <p class="text-sm text-gray-600">Current Bid: €1,200</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="view-item px-3 py-1 border rounded text-sm hover:bg-gray-100">View</button>
+                        <button class="remove-favorite text-red-500 hover:text-red-700">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 text-center text-gray-500">
+                <p>No other favorites added yet</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">PETERFELIX</h3>
+                    <p class="text-gray-400">Contemporary collage artist working with mixed media and found materials.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Shop</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Auction</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Information</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Exhibitions</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-2">Subscribe for updates on new work and exhibitions.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" class="px-3 py-2 text-gray-900 rounded-l w-full">
+                        <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-r">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 PETERFELIX. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Tab switching functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active-tab');
+                    btn.classList.remove('border-blue-600');
+                    btn.classList.add('text-gray-500');
+                    btn.classList.add('border-transparent');
+                });
+                
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active-tab');
+                button.classList.add('border-blue-600');
+                button.classList.add('text-gray-900');
+                button.classList.remove('text-gray-500');
+                button.classList.remove('border-transparent');
+                
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Favorite button functionality
+        const favoriteButtons = document.querySelectorAll('.favorite-btn');
+        favoriteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    this.classList.add('active');
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    this.classList.remove('active');
+                }
+            });
+        });
+
+        // Bid modal functionality
+        const bidButtons = document.querySelectorAll('.bid-btn');
+        const bidModal = document.getElementById('bid-modal');
+        const closeModal = document.getElementById('close-modal');
+        const cancelBid = document.getElementById('cancel-bid');
+        
+        bidButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const artworkId = this.getAttribute('data-artwork');
+                // In a real app, you would fetch artwork details based on ID
+                document.getElementById('artwork-title').textContent = 'Bid on ' + this.closest('.artwork-card').querySelector('h3').textContent;
+                document.getElementById('current-bid').textContent = this.closest('.artwork-card').querySelector('.text-xl').textContent;
+                
+                // Calculate next bid (current bid + 10%)
+                const currentBid = parseFloat(document.getElementById('current-bid').textContent.replace('€', '').replace(',', ''));
+                const nextBid = Math.ceil(currentBid * 1.1 / 10) * 10;
+                document.getElementById('next-bid').textContent = '€' + nextBid;
+                document.getElementById('bid-amount').min = nextBid;
+                document.getElementById('bid-amount').value = nextBid;
+                
+                bidModal.classList.remove('hidden');
+            });
+        });
+        
+        [closeModal, cancelBid].forEach(button => {
+            button.addEventListener('click', function() {
+                bidModal.classList.add('hidden');
+            });
+        });
+        
+        // Submit bid functionality
+        document.getElementById('submit-bid').addEventListener('click', function() {
+            const bidAmount = document.getElementById('bid-amount').value;
+            const bidName = document.getElementById('bid-name').value;
+            
+            if (!bidName) {
+                alert('Please enter your name');
+                return;
+            }
+            
+            // In a real app, you would submit this to a server
+            const bidHistory = document.querySelector('.bid-history');
+            bidHistory.innerHTML = `
+                <div class="flex justify-between items-center py-2 border-b">
+                    <span class="font-medium">${bidName}</span>
+                    <span class="font-bold">€${bidAmount}</span>
+                </div>
+                ${bidHistory.innerHTML}
+            `;
+            
+            // Update current bid display
+            document.getElementById('current-bid').textContent = '€' + bidAmount;
+            
+            // Calculate new next bid
+            const nextBid = Math.ceil(bidAmount * 1.1 / 10) * 10;
+            document.getElementById('next-bid').textContent = '€' + nextBid;
+            document.getElementById('bid-amount').min = nextBid;
+            document.getElementById('bid-amount').value = nextBid;
+            
+            // Show success message
+            alert(`Your bid of €${bidAmount} has been placed successfully!`);
+        });
+
+        // Cart functionality
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCart = document.getElementById('close-cart');
+        
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // In a real app, you would add the item to a cart array
+                cartModal.classList.remove('hidden');
+            });
+        });
+        
+        closeCart.addEventListener('click', function() {
+            cartModal.classList.add('hidden');
+        });
+
+        // Favorites modal functionality
+        const viewFavorites = document.getElementById('view-favorites');
+        const favoritesModal = document.getElementById('favorites-modal');
+        const closeFavorites = document.getElementById('close-favorites');
+        
+        viewFavorites.addEventListener('click', function() {
+            favoritesModal.classList.remove('hidden');
+        });
+        
+        closeFavorites.addEventListener('click', function() {
+            favoritesModal.classList.add('hidden');
+        });
+
+        // Countdown timer functionality
+        function updateCountdowns() {
+            const countdowns = document.querySelectorAll('.countdown');
+            
+            countdowns.forEach(countdown => {
+                const endTime = new Date(countdown.getAttribute('data-endtime')).getTime();
+                const now = new Date().getTime();
+                const distance = endTime - now;
+                
+                if (distance < 0) {
+                    countdown.innerHTML = "Auction ended";
+                    return;
+                }
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                
+                countdown.querySelector('.time-left').textContent = `${days}d ${hours}h ${minutes}m`;
+            });
+        }
+        
+        // Update countdowns every minute
+        updateCountdowns();
+        setInterval(updateCountdowns, 60000);
+
+        // Quantity buttons in cart
+        const quantityButtons = document.querySelectorAll('.quantity-btn');
+        quantityButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const span = this.parentElement.querySelector('span');
+                let quantity = parseInt(span.textContent);
+                
+                if (this.textContent === '+' && quantity < 10) {
+                    span.textContent = quantity + 1;
+                } else if (this.textContent === '-' && quantity > 1) {
+                    span.textContent = quantity - 1;
+                }
+                
+                // In a real app, you would update the cart total here
+            });
+        });
+
+        // Remove item from cart
+        const removeItems = document.querySelectorAll('.remove-item');
+        removeItems.forEach(button => {
+            button.addEventListener('click', function() {
+                if (confirm('Remove this item from your cart?')) {
+                    this.closest('.border-b').remove();
+                    // In a real app, you would update the cart array and total
+                }
+            });
+        });
+
+        // Remove item from favorites
+        const removeFavorites = document.querySelectorAll('.remove-favorite');
+        removeFavorites.forEach(button => {
+            button.addEventListener('click', function() {
+                if (confirm('Remove this item from your favorites?')) {
+                    this.closest('.border-b').remove();
+                    // In a real app, you would update the favorites array
+                }                             
+            });
+        });
+    </script>
+</body>
+</html>
